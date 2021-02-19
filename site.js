@@ -31,16 +31,18 @@ function setNextQuestion() {
 function showQuestion(question) {
   answerButton.classList.remove('disable')
   questionElement.innerText = question.question
-  question.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
-    if (answer.correct) {
-      button.dataset.correct = answer.correct
-    }
-    button.addEventListener('click', selectAnswer)
-    answerButton.appendChild(button)
-  })
+  question.answers
+    .sort(() => Math.random() - 0.5)
+    .forEach(answer => {
+      const button = document.createElement('button')
+      button.innerText = answer.text
+      button.classList.add('btn')
+      if (answer.correct) {
+        button.dataset.correct = answer.correct
+      }
+      button.addEventListener('click', selectAnswer)
+      answerButton.appendChild(button)
+    })
 }
 
 function resetState() {
@@ -62,7 +64,7 @@ function selectAnswer(e) {
     nextButton.classList.remove('hide')
     answerButton.classList.add('disable')
   } else {
-    startButton.innerText = 'Restart' 
+    startButton.innerText = 'Restart'
     startButton.classList.remove('hide')
   }
   if (selectedButton.dataset = correct) {
